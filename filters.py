@@ -21,7 +21,7 @@ driver.find_elements_by_class_name('property-type.room-no.pull-right')[0].find_e
 
 #  Scrolling to get all the data which only shows up on scrolling to the bottom
 
-SCROLL_PAUSE_TIME = 0.4
+SCROLL_PAUSE_TIME = 1
 last_height = driver.execute_script("return document.body.scrollHeight")       # Get scroll height
 
 while True:
@@ -115,14 +115,25 @@ for i in containers:
 with open('afterFilters.csv', 'w') as csvfile:
 
     add = csv.writer(csvfile)
+    add.writerow([""])
+    add.writerow(["","Website: https://www.propertiesguru.com/residential-search/2bhk-residential_apartment_flat-for-sale-in-new_delhi"])
+    add.writerow(["","Filters: 2BHK, 3BHK and 4BHK"])
+    add.writerow(["","Total Properties: "+str(len(containers))])
+    add.writerow([""])
     headers = ["Sr. No.","Heading","Location","Price",
                "Total Area","Facing side","Status","Feature 1","Feature 2",
                "Feature 3","Feature 4","Owner/Agent Name","Posted"]
 
     add.writerow(headers)    # adding headers in the properties.csv file
+    add.writerow("")
 
     # adding all the property rows
     for i in alldata:
         add.writerow(i)
 
+    add.writerow([""])
+    add.writerow(["","","","","","","","","","Coded By: Ayush Jain"])
+    add.writerow(["","","","","","","","","","Github: https://github.com/ayushjaink8/webScrapping"])
+
+print("\n########## Code Executed Successfully ###############\n ")
 

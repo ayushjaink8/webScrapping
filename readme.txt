@@ -45,3 +45,9 @@ python scrap.py                                         # run the code
 
 2) filters.py
 --- scraps the data after applying 3BHK, 4BHK filters
+
+
+Output CSV Files will be there in the same folder as of the repository with names:
+
+1) properties.csv      ---  Without filters (created by scrap.py)
+2) afterFilters.csv    ---  With filters    (created by filters.py)
