@@ -107,7 +107,7 @@ for i in containers:
     # print("Posted: ",posted,"\n")
     # print("\n######################################################\n")
 
-    property_data = [temp,heading,location,price,area,facing, status,feature1,feature2,feature3,feature4,name,posted]
+    property_data = [str(temp),heading,location,price,area,facing, status,feature1,feature2,feature3,feature4,name,posted]
     alldata.append(property_data)   # adding each property data object in alldata
     temp+=1                     # increasing the serial number
 
