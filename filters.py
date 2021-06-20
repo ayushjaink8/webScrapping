@@ -1,10 +1,9 @@
 from bs4 import BeautifulSoup as soup
 from urllib.request import urlopen
 from selenium import webdriver
-from selenium.webdriver.common.by import By
+from time import sleep
 import csv
-# from time import sleep
-# import threading
+
 
 from webdriver_manager.chrome import ChromeDriverManager
 driver = webdriver.Chrome(ChromeDriverManager().install())
@@ -17,16 +16,40 @@ driver.get(url)
 driver.find_elements_by_id('navbarDropdownMenuLink')[2].click()
 driver.find_elements_by_class_name('property-type.room-no.pull-right')[0].find_elements_by_tag_name('span')[2].click()
 driver.find_elements_by_class_name('property-type.room-no.pull-right')[0].find_elements_by_tag_name('span')[3].click()
-# sleep(3)
+
+
+
+#  Scrolling to get all the data which only shows up on scrolling to the bottom
+
+SCROLL_PAUSE_TIME = 0.4
+last_height = driver.execute_script("return document.body.scrollHeight")       # Get scroll height
+
+while True:
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")    # Scroll down to bottom
+    sleep(SCROLL_PAUSE_TIME)  # Wait to load page
+
+    # Calculate new scroll height and compare with last scroll height
+    new_height = driver.execute_script("return document.body.scrollHeight")
+
+    if(new_height == last_height):    # Applying the end condition for stoping the scroll
+        break
+    else:
+        last_height = new_height
+
+#######################################################################################
+
+#  Getting properties container from the web page
+
 page_soup = soup(driver.page_source, 'html.parser')
 containers = page_soup.findAll("div", {"class":"filter-property-list detailurl"} )
 
-print("working....")
-
 driver.quit()
 
-# print("Successfully executed ....\n\n\n\n\n\n",len(containers))
+# print("Successfully executed ....\n",len(containers))
 
+
+
+# ......  Backend code for scrapping and expoting to excel file  ...........
 
 temp=1
 alldata=[]
