@@ -1,0 +1,110 @@
+from typing import Container
+from selenium import webdriver
+from bs4 import BeautifulSoup as soup
+from urllib.request import urlopen
+from time import sleep
+import csv
+
+# from webdriver_manager.chrome import ChromeDriverManager
+# driver = webdriver.Chrome(ChromeDriverManager().install())
+
+############################################################################################
+
+# url = "https://www.4devs.com.br/gerador_de_cpf"
+# def get_value():
+#     driver = webdriver.Chrome()
+#     driver.get(url)
+#     driver.find_element_by_id('bt_gerar_cpf').click()
+#     while driver.find_element_by_id('texto_cpf').text == 'Gerando...':
+#         continue
+#     val = driver.find_element_by_id('texto_cpf').text
+#     driver.quit()
+#     return val
+
+# print("working")
+# print(get_value())
+
+# ##################################################################################
+
+url = "https://www.propertiesguru.com/residential-search/2bhk-residential_apartment_flat-for-sale-in-new_delhi"
+
+web = urlopen(url)
+html_view = web.read()
+web.close()
+page_soup = soup(html_view,"html.parser")
+
+
+containers = page_soup.findAll("div", {"class":"filter-property-list detailurl"} )
+
+# print(containers)
+temp=0
+for i in containers:
+
+    # Getting Heading
+    heading = str(i.findAll("h1",{"class":"filter-pro-heading"})[0])
+    start=heading.find("<span>")
+    heading  = heading[31:start]
+    # print("start: ",start,"\n")
+
+    #Getting Location
+    location = i.findAll("a",{"class":"fullscreen"})[0].text
+
+    # Getting Prize
+    price = i.findAll("span",{"class":"price"})[0].text
+    price_per_unit =  i.findAll("span",{"class":"price-per-unit"})[0].text
+    price_per_unit = price_per_unit[1:len(price_per_unit)]
+
+    # Getting Total Area
+    area = i.findAll("div",{"class":"row filter-pro-details"})[0].findAll("div")[0].text
+    area = area[4:len(area)]
+
+    # Getting Facing side
+    facing = i.findAll("div",{"class":"row filter-pro-details"})[0].findAll("div")[1].text
+    facing = facing[6:len(facing)]
+
+    # Getting Status
+    status = i.findAll("div",{"class":"row filter-pro-details"})[0].findAll("div")[2].text
+    status = status[6:len(status)]
+
+    # Getting Property Features
+    feature1 = i.findAll("ul",{"class":"pro-list"})[0].findAll("li")[0].text
+    feature2 = i.findAll("ul",{"class":"pro-list"})[0].findAll("li")[1].text
+    feature3 = i.findAll("ul",{"class":"pro-list"})[0].findAll("li")[2].text
+    feature4 = i.findAll("ul",{"class":"pro-list"})[0].findAll("li")[3].text
+
+    #Getting Owner/Agent Name
+    name = i.findAll("span",{"class":"owner-name"})[0].text
+
+    # Getting date posted
+    posted = i.findAll("span",{"class":"owner-post"})[0].text.strip()
+    posted = posted[8:len(posted)]
+
+    print("\n",temp+1,") \n")
+    print("Heading: ",heading,"\n")
+    print("Location: ",location,"\n")
+    print("price: ₹",price," (",price_per_unit,")\n")
+    print("Total Area: ",area,"\n")
+    print("Facing Side: ",facing,"\n")
+    print("Status: ",status,"\n")
+    print("Features: 1.",feature1,"    2.",feature2,"    3.",feature3,"    4.",feature4,"\n")
+    print("Owner/Agent Name: ",name,"\n")
+    print("Posted: ",posted,"\n")
+    print("\n######################################################\n")
+
+    temp+=1
+
+
+# filename="scrapped.csv"
+# f= open(filename,"w")
+
+# headers = ["Heading","Location","price","Total Area","Facing side","Status"]
+# f.write(headers)
+
+# exporting a list variable into the csv file
+
+headers = ["Heading","Location","Price","Total Area","Facing side","Status","Feature 1","Feature 2","Feature 3","Feature 4","Owner/Agent Name","Posted"]
+
+with open('Example.csv', 'w') as csvfile:
+    my_writer = csv.writer(csvfile)
+    my_writer.writerow(headers)
+
