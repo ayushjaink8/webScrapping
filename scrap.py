@@ -1,30 +1,11 @@
-from typing import Container
 from selenium import webdriver
 from bs4 import BeautifulSoup as soup
 from urllib.request import urlopen
-from time import sleep
 import csv
+# from time import sleep
 
 # from webdriver_manager.chrome import ChromeDriverManager
 # driver = webdriver.Chrome(ChromeDriverManager().install())
-
-############################################################################################
-
-# url = "https://www.4devs.com.br/gerador_de_cpf"
-# def get_value():
-#     driver = webdriver.Chrome()
-#     driver.get(url)
-#     driver.find_element_by_id('bt_gerar_cpf').click()
-#     while driver.find_element_by_id('texto_cpf').text == 'Gerando...':
-#         continue
-#     val = driver.find_element_by_id('texto_cpf').text
-#     driver.quit()
-#     return val
-
-# print("working")
-# print(get_value())
-
-# ##################################################################################
 
 url = "https://www.propertiesguru.com/residential-search/2bhk-residential_apartment_flat-for-sale-in-new_delhi"
 
@@ -36,7 +17,6 @@ page_soup = soup(html_view,"html.parser")
 
 containers = page_soup.findAll("div", {"class":"filter-property-list detailurl"} )
 
-# print(containers)
 temp=1
 alldata=[]
 
@@ -96,17 +76,7 @@ for i in containers:
     temp+=1                     # increasing the serial number
 
 
-# filename="scrapped.csv"
-# f= open(filename,"w")
-
-# headers = ["Heading","Location","price","Total Area","Facing side","Status"]
-# f.write(headers)
-
-# exporting a list variable into the csv file
-
-
-
-# Editing the CSV File (EXCEL)
+# Creating the CSV File (EXCEL)
 
 with open('properties.csv', 'w') as csvfile:
 

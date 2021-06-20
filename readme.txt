@@ -44,4 +44,4 @@ python scrap.py                                         # run the code
 -- scraps property data from "https://www.propertiesguru.com/residential-search/2bhk-residential_apartment_flat-for-sale-in-new_delhi"
 
 2) filters.py
---- scraps the data after applying filters
+--- scraps the data after applying 3BHK, 4BHK filters
