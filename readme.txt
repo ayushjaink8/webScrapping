@@ -8,13 +8,14 @@ git clone https://github.com/ayushjaink8/webScrapping.git             # to clone
 
 cd webScrapping                                                    # enter into the project
 
-python -m venv venv                                          # Creating the virtual environment
+python3 -m pip install --user virtualenv                        # install virtual environment
+python3 -m venv venv                                          # Creating the virtual environment
 . venv/bin/activate                                          # Activate the virtual environment
 [ (venv) will appear in front of your directory ]
 
 pip install -r requirements.txt                                 # Install all the requirements
 
-python scrap_properties.py                                         # run the code
+python3 scrap_properties.py                                         # run the code
 
 ################################################################################################
 
@@ -24,6 +25,7 @@ git clone https://github.com/ayushjaink8/webScrapping.git             # to clone
 
 cd webScrapping                                                     # enter into the project
 
+python -m pip install --user virtualenv                        # install virtual environment
 python -m venv venv                                          # Creating the virtual environment
 cd venv/Scripts && activate                                  # Activate the virtual environment
 [ (venv) will appear in front of your directory ]
