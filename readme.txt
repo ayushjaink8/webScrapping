@@ -15,7 +15,7 @@ python3 -m venv venv                                          # Creating the vir
 
 pip install -r requirements.txt                                 # Install all the requirements
 
-python3 scrap_properties.py                                         # run the code
+python3 scrap.py                                         # run the code
 
 ################################################################################################
 
@@ -34,6 +34,14 @@ cd ../../                                                       # to change dire
 
 pip install -r requirements.txt                                 # Install the requirements
 
-python scrap_properties.py                                         # run the code
+python scrap.py                                         # run the code
 
 ################################################################################################
+
+
+
+1) scrap.py
+-- scraps property data from "https://www.propertiesguru.com/residential-search/2bhk-residential_apartment_flat-for-sale-in-new_delhi"
+
+2) filters.py
+--- scraps the data after applying filters

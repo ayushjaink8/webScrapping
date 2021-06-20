@@ -37,14 +37,14 @@ page_soup = soup(html_view,"html.parser")
 containers = page_soup.findAll("div", {"class":"filter-property-list detailurl"} )
 
 # print(containers)
-temp=0
-for i in containers:
+temp=1
+alldata=[]
 
+for i in containers:
     # Getting Heading
     heading = str(i.findAll("h1",{"class":"filter-pro-heading"})[0])
     start=heading.find("<span>")
     heading  = heading[31:start]
-    # print("start: ",start,"\n")
 
     #Getting Location
     location = i.findAll("a",{"class":"fullscreen"})[0].text
@@ -79,19 +79,21 @@ for i in containers:
     posted = i.findAll("span",{"class":"owner-post"})[0].text.strip()
     posted = posted[8:len(posted)]
 
-    print("\n",temp+1,") \n")
-    print("Heading: ",heading,"\n")
-    print("Location: ",location,"\n")
-    print("price: ₹",price," (",price_per_unit,")\n")
-    print("Total Area: ",area,"\n")
-    print("Facing Side: ",facing,"\n")
-    print("Status: ",status,"\n")
-    print("Features: 1.",feature1,"    2.",feature2,"    3.",feature3,"    4.",feature4,"\n")
-    print("Owner/Agent Name: ",name,"\n")
-    print("Posted: ",posted,"\n")
-    print("\n######################################################\n")
+    # print("\n",temp,") \n")
+    # print("Heading: ",heading,"\n")
+    # print("Location: ",location,"\n")
+    # print("price: ₹",price," (",price_per_unit,")\n")
+    # print("Total Area: ",area,"\n")
+    # print("Facing Side: ",facing,"\n")
+    # print("Status: ",status,"\n")
+    # print("Features: 1.",feature1,"    2.",feature2,"    3.",feature3,"    4.",feature4,"\n")
+    # print("Owner/Agent Name: ",name,"\n")
+    # print("Posted: ",posted,"\n")
+    # print("\n######################################################\n")
 
-    temp+=1
+    property_data = [temp,heading,location,price,area,facing, status,feature1,feature2,feature3,feature4,name,posted]
+    alldata.append(property_data)   # adding each property data object in alldata
+    temp+=1                     # increasing the serial number
 
 
 # filename="scrapped.csv"
@@ -102,9 +104,25 @@ for i in containers:
 
 # exporting a list variable into the csv file
 
-headers = ["Heading","Location","Price","Total Area","Facing side","Status","Feature 1","Feature 2","Feature 3","Feature 4","Owner/Agent Name","Posted"]
 
-with open('Example.csv', 'w') as csvfile:
-    my_writer = csv.writer(csvfile)
-    my_writer.writerow(headers)
+
+# Editing the CSV File (EXCEL)
+
+with open('properties.csv', 'w') as csvfile:
+
+    add = csv.writer(csvfile)
+    headers = ["Sr. No.","Heading","Location","Price",
+               "Total Area","Facing side","Status","Feature 1","Feature 2",
+               "Feature 3","Feature 4","Owner/Agent Name","Posted"]
+
+    add.writerow(headers)    # adding headers in the properties.csv file
+
+    # adding all the property rows
+    for i in alldata:
+        add.writerow(i)
+
+
+
+
+
 
