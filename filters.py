@@ -22,10 +22,12 @@ driver.find_elements_by_class_name('property-type.room-no.pull-right')[0].find_e
 #  Scrolling to get all the data which only shows up on scrolling to the bottom
 
 SCROLL_PAUSE_TIME = 1
+sleep(SCROLL_PAUSE_TIME)  # Wait to load page
 last_height = driver.execute_script("return document.body.scrollHeight")       # Get scroll height
 
 while True:
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")    # Scroll down to bottom
+
     sleep(SCROLL_PAUSE_TIME)  # Wait to load page
 
     # Calculate new scroll height and compare with last scroll height
